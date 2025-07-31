@@ -1,3 +1,5 @@
+const booksContainer = document.querySelector(".container");
+
 const library = [
     {
         id: crypto.randomUUID(),
@@ -24,8 +26,27 @@ function addBookToLibrary(title, author, pages, read) {
     library.push(book);
 }
 
-// addBookToLibrary("naruto", "kishimoto", 9000, true);
-// console.log(library[1].title);
-// console.log(library[0].id);
-// console.log(library[1].id);
+function displayBooks() {
+    library.forEach((book) => {
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book-card");
 
+        bookCard.innerHTML = 
+            `
+                <div class='card-banner'></div>
+                <div class='book-info'>
+                    <h2>${book.title}</h2>
+                    <h3>${book.author}</h3>
+                    <h3>${book.pages}</h3>
+                    <div class='card-buttons'>
+                        <button class='${book.read}'>Read</button>
+                        <button class='remove'>Remove</button>
+                    </div>
+                </div>
+            `;
+        booksContainer.append(bookCard);
+    });
+}
+
+addBookToLibrary("naruto", "kishimoto", 9000, true);
+displayBooks();
