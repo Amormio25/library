@@ -1,14 +1,10 @@
 const booksContainer = document.querySelector(".container");
-
-const library = [
-    {
-        id: crypto.randomUUID(),
-        title: "testTitle",
-        author: "testAuthor",
-        pages: 100,
-        read: false
-    }
-];
+const formElement = document.querySelector("form");
+const addButton = document.querySelector("[data-open-modal]");
+const submitButton = document.querySelector(".submit");
+const cancelButton = document.querySelector(".cancel");
+const modal = document.querySelector("[data-modal]");
+const library = [];
 
 function Book(title, author, pages, read) {
     if (!new.target) {
@@ -21,9 +17,21 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const book = new Book(title, author, pages, read);
-    library.push(book);
+function addBookToLibrary(event) {
+    if (formElement.checkValidity()) {
+        event.preventDefault();
+        const formData = new FormData(formElement);
+        const book = new Book(
+            formData.get('title'), 
+            formData.get("author"), 
+            formData.get("pages"), 
+            formData.get("read")
+        );
+        console.log(book.title);
+        library.push(book);
+        closeModal();
+        displayBooks();
+    }
 }
 
 function displayBooks() {
@@ -48,5 +56,28 @@ function displayBooks() {
     });
 }
 
-addBookToLibrary("naruto", "kishimoto", 9000, true);
+function closeModal() {
+    modal.classList.remove("open");
+    formElement.reset();
+    setTimeout(() => {
+        modal.close();
+    }, 200);
+}
+
+addButton.addEventListener("click", () => {
+    modal.showModal();
+    modal.classList.add("open");
+});
+
+formElement.addEventListener("submit", addBookToLibrary);
+
+cancelButton.addEventListener("click", closeModal);
+
+modal.addEventListener("cancel", (event) => {
+    // prevent the default action of escape key which removes transitions
+    event.preventDefault();
+    closeModal();
+});
+
 displayBooks();
+
