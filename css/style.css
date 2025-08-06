@@ -1,8 +1,10 @@
 :root {
     --normal-grey: rgba(175, 175, 175, 0.5);
     --hover-grey: rgba(175, 175, 175, 0.65);
-    --light-red: rgba(251, 0, 0, 0.5);
-    --hover-light-red: rgba(251, 0, 0, 0.6);
+    --light-red: rgba(250, 0, 0, 0.5);
+    --hover-light-red: rgba(250, 0, 0, 0.6);
+    --light-green: rgba(0, 250, 0, 0.6);
+    --hover-light-green: rgba(0, 250, 0, 0.75);
 }
 
 * {
@@ -10,6 +12,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+button:hover,
+input[type="checkbox"]:hover {
+    cursor: pointer;
 }
 
 body {
@@ -43,8 +50,6 @@ body {
 
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     font-weight: 575;
-
-    /* transition: 0.2s ease-in; */
 }
 
 .header button:hover {
@@ -61,7 +66,7 @@ body {
 }
 
 .book-card {
-    height: 250px;
+    min-height: 250px;
     border-radius: 18px;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     background-color: white;
@@ -70,7 +75,12 @@ body {
 }
 
 .book-card .book-info {
+    height: 85%;
     padding: 1rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .book-card .card-banner {
@@ -94,22 +104,28 @@ body {
 }
 
 .book-card h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 575;
 }
 
 .book-card h3 {
     font-size: 1.25rem;
+    color: rgb(100, 100, 100);
+}
+
+.book-card h4 {
+    font-size: 1rem;
+    color: rgb(125, 125, 125);
 }
 
 .book-card .card-buttons {
-    padding-top: 1rem;
+    padding: 1rem 0rem 1rem 0rem;
     display: flex;
     gap: 1rem;
 }
 
 .book-card button {
-    padding: 0.75rem 2rem;
+    padding: 0.75rem clamp(1rem, 2vw, 1.5rem);
     border: none;
     border-radius: 4px;
     background-color: var(--light-red);
@@ -119,6 +135,14 @@ body {
 
 .book-card button:hover {
     background-color: var(--hover-light-red);
+}
+
+.book-card .toggle.read {
+    background-color: var(--light-green);
+}
+
+.book-card .toggle.read:hover {
+    background-color: var(--hover-light-green);
 }
 
 dialog {
@@ -143,7 +167,6 @@ dialog.open {
     width: 350px; 
     height: 410px;
     padding: 2rem;
-
 
     display: flex;
     flex-direction: column;
@@ -185,10 +208,6 @@ dialog.open {
     accent-color: rgb(0, 135, 0);
 }
 
-.form-container input[type="checkbox"]:hover {
-    background-color: transparent;
-}
-
 .form-container input[type="checkbox"]:checked {
     background-color: green;
 }
@@ -209,6 +228,10 @@ dialog.open {
     font-weight: 600;
 }
 
+.form-container .submit:hover {
+    background-color: rgb(42, 129, 236);
+}
+
 .form-container .cancel {
     padding: 0.75rem 1.1rem;
     border: none;
@@ -218,4 +241,8 @@ dialog.open {
     color: white;
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+.form-container .cancel:hover {
+    background-color: rgb(161, 161, 161);
 }
